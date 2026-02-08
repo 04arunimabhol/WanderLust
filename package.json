@@ -1,0 +1,27 @@
+{
+  "name": "wanderlust",
+  "version": "1.0.0",
+  "description": "Clone of Airbnb",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/04arunimabhol/WanderLust.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/04arunimabhol/WanderLust/issues"
+  },
+  "homepage": "https://github.com/04arunimabhol/WanderLust#readme",
+  "dependencies": {
+    "ejs": "^4.0.1",
+    "express": "^5.2.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^9.1.6"
+  }
+}
