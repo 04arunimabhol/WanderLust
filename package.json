@@ -20,6 +20,7 @@
   "homepage": "https://github.com/04arunimabhol/WanderLust#readme",
   "dependencies": {
     "ejs": "^4.0.1",
+    "ejs-mate": "^4.0.0",
     "express": "^5.2.1",
     "method-override": "^3.0.0",
     "mongoose": "^9.1.6"

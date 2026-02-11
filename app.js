@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
+const ejsMate = require("ejs-mate");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
@@ -21,6 +22,8 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({extended: true}));
 app.use(methodOverride("_method"));
+app.engine('ejs', ejsMate);
+app.use(express.static(path.join(__dirname, "/public")));
 
 app.get('/', (req, res) => {
     res.send("hi, I'm root");
@@ -44,6 +47,7 @@ app.get('/listings/:id', async (req, res) => {
     res.render("listings/show.ejs", {listing});
 });
 
+
 //post route
 app.post("/listings", async(req,res) =>{
     const newListing = new Listing(req.body.listing);
@@ -60,10 +64,19 @@ app.get('/listings/:id/edit', async (req, res) => {
 
 //update route
 app.put('/listings/:id', async (req, res) => {
-    let {id} = req.params;
-    await Listing.findByIdAndUpdate(id, {...req.body.listing});
+    let { id } = req.params;
+    let updatedData = req.body.listing;
+
+    // Convert image string into object
+    updatedData.image = {
+        url: updatedData.image,
+        filename: "listingimage"
+    };
+
+    await Listing.findByIdAndUpdate(id, updatedData);
     res.redirect(`/listings/${id}`);
 });
+
 
 //delete route
 app.delete('/listings/:id', async (req, res) => {
