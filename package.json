@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "24.12.0"
+  },
   "name": "wanderlust",
   "version": "1.0.0",
   "description": "Clone of Airbnb",
@@ -23,6 +26,7 @@
     "@maptiler/sdk": "^3.11.1",
     "cloudinary": "^2.9.0",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.3.1",
     "ejs": "^3.0.2",
