@@ -64,10 +64,6 @@ const sessionOptions = {
     },
 };
 
-// app.get('/', (req, res) => {
-//     res.send("I'm the root");
-// });
-
 
 app.use(session(sessionOptions));
 app.use(flash());
@@ -86,6 +82,9 @@ app.use((req,res,next) => {
     next();
 });
 
+app.get("/", async (req, res) => {
+    res.redirect("/listings");
+});
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
@@ -97,7 +96,9 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render("error.ejs", { err});
 });
 
-app.listen(8080, () => {
-    console.log("Server is running on port 8080");
+const port = process.env.PORT || 8080;
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
 });
 
