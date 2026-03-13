@@ -76,6 +76,11 @@ body {
     font-weight: 400 !important;
 }
 
+.starability-result {
+    transform: scale(0.7);
+    transform-origin: left;
+}
+
 .listing-link {
     text-decoration: none;
 }
@@ -127,6 +132,8 @@ body {
     margin-right: 2rem;
     margin-top: 2rem;
     opacity: 0.7;
+    text-decoration: none;
+    color: black;
 }
 
 .filter:hover {
@@ -180,4 +187,29 @@ body {
 #map { 
     height: 400px;
     width: 80vh; 
+}
+
+/* like btn */
+.image-container{
+    position: relative;
+}
+
+.like-btn{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: transparent;
+    border: none;
+    font-size: 22px;
+    color: white;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.like-btn i{
+    text-shadow: 0 0 5px rgba(0,0,0,0.6);
+}
+
+.liked{
+    color: red;
 }

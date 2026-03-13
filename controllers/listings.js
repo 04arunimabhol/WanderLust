@@ -79,22 +79,22 @@ module.exports.updateListing = async (req, res) => {
 };
 
 module.exports.searchListings = async (req, res) => {
-    try {
-        const { query } = req.query;
+    const { query } = req.query;
+    const allListing = await Listing.find({
+        $or: [
+            { location: { $regex: query, $options: "i" } },
+            { title: { $regex: query, $options: "i" } }
+        ]
+    });
 
-        const allListing = await Listing.find({
-            $or: [
-                { location: { $regex: query, $options: "i" } },
-                { title: { $regex: query, $options: "i" } }
-            ]
-        });
+    res.render("listings/index.ejs", { allListing });
 
-        res.render("listings/index.ejs", { allListing });
+};
 
-    } catch (err) {
-        console.log(err);
-        res.redirect("/listings");
-    }
+module.exports.categoryListing = async (req, res) => {
+    const { category } = req.params;
+    const allListing = await Listing.find({ category: category });
+    res.render("listings/index.ejs", { allListing });
 };
 
 module.exports.destroyListing = async (req, res) => {

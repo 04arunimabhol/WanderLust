@@ -1,54 +1,62 @@
 <% layout("/layouts/boilerplate") %>
 
 <div id="filters" class="d-flex flex-nowrap overflow-auto">
-    <div class="filter">
+    <a href="/listings" class="filter">
         <div><i class="fa-solid fa-fire"></i></div>
         <p>Trending</p>
-    </div>
-    <div class="filter">
+    </a>
+
+    <a href="/listings" class="filter">
         <div><i class="fa-solid fa-bed"></i></div>
         <p>Rooms</p>
-    </div>
-    <div class="filter">
+    </a>
+
+    <a href="/listings/category/Cities" class="filter">
         <div><i class="fa-solid fa-mountain-city"></i></div>
         <p>Iconic cities</p>
-    </div>
-    <div class="filter">
+    </a>
+
+    <a href="/listings/category/Mountains" class="filter">
         <div><i class="fa-solid fa-mountain-sun"></i></div>
         <p>Mountains</p>
-    </div>
-    <div class="filter">
+    </a>
+
+    <a href="/listings/category/Castels" class="filter">
         <div><i class="fa-brands fa-fort-awesome"></i></div>
         <p>Castels</p>
-    </div>
-    <div class="filter">
+    </a>
+
+    <a href="/listings/category/Pools" class="filter">
         <div><i class="fa-solid fa-person-swimming"></i></div>
         <p>Amazing Pools</p>
-    </div>
-    <div class="filter">
+    </a>
+
+    <a href="/listings/category/Camping" class="filter">
         <div><i class="fa-solid fa-campground"></i></div>
         <p>Camping</p>
-    </div>
-    <div class="filter">
+    </a>
+
+    <a href="/listings/category/Beach" class="filter">
         <div><i class="fa-solid fa-umbrella-beach"></i></div>
         <p>Beach</p>
-    </div>
-    <div class="filter">
+    </a>
+
+    <a href="/listings/category/Arctic" class="filter">
         <div><i class="fa-solid fa-igloo"></i></div>
         <p>Arctic</p>
-    </div>
-    <div class="filter">
+    </a>
+    <a href="/listings/category/Treehouse" class="filter">
         <div><i class="fa-solid fa-tree"></i></div>
         <p>Tree House</p>
-    </div>
-    <div class="filter">
+    </a>
+    <a href="/listings/category/Houseboat" class="filter">
         <div><i class="fa-solid fa-sailboat"></i></div>
         <p>House Boat</p>
-    </div>
-    <div class="filter">
+    </a>
+    <a href="/listings/category/Safari" class="filter">
         <div><i class="fa-solid fa-hippo"></i></div>
         <p>Safari</p>
-    </div>
+    </a>
 
     <div class="tax-toggle">
         <div class="form-check-reverse form-switch">
@@ -62,7 +70,12 @@
     <% for (const listing of allListing) { %>
         <a href="/listings/<%= listing._id %> " class="listing-link">
             <div class="card col listing-card">
-                <img src="<%= listing.image.url %>" class="card-img-top" alt="listingimage" style="height: 20rem;">
+                <div class="image-container">
+                    <img src="<%= listing.image.url %>" class="card-img-top" alt="listingimage" style="height: 20rem;">
+                    <button class="like-btn">
+                        <i class="fa-regular fa-heart"></i>
+                    </button>
+                </div>
                 <div class="card-img-overlay"></div>
                 <div class="card-body">
                     <p class="card-text">

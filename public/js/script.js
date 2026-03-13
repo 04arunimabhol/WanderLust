@@ -16,3 +16,17 @@
     }, false)
   });
 })();
+
+let likeBtns = document.querySelectorAll(".like-btn");
+
+likeBtns.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+        e.preventDefault(); // stop link redirect
+
+        let icon = btn.querySelector("i");
+
+        icon.classList.toggle("fa-regular");
+        icon.classList.toggle("fa-solid");
+        icon.classList.toggle("liked");
+    });
+});
