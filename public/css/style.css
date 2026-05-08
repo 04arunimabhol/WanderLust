@@ -213,3 +213,18 @@ body {
 .liked{
     color: red;
 }
+
+.auth-wrapper {
+    min-height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-card {
+    width: 28rem;
+    padding: 2rem;
+    border-radius: 16px;
+    background-color: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}

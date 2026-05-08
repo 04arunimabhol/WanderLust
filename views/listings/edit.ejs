@@ -20,6 +20,7 @@
           <div class="mb-3">
             <label for="category" class="form-label">Category</label>
             <select name="listing[category]" class="form-select">
+              <option value="Rooms" <%=listing.category==="Rooms" ? "selected" : "" %>>Rooms</option>
               <option value="Mountains" <%=listing.category==="Mountains" ? "selected" : "" %>>Mountains</option>
               <option value="Beach" <%=listing.category==="Beach" ? "selected" : "" %>>Beach</option>
               <option value="Camping" <%=listing.category==="Camping" ? "selected" : "" %>>Camping</option>
