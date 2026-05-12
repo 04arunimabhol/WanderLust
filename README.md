@@ -1,22 +1,64 @@
 # WanderLust
-Airbnb-Inspired Rental Platform
 
-A full-stack **Airbnb inspired website** that replicates core features of Airbnb such as property listings, detailed views, and user-friendly UI.  
-This project is built to practice real-world web development concepts and improve full-stack skills.
+A full-stack travel accommodation web application where users can explore, create, review, and manage travel listings seamlessly.
 
-Tech Stack: Node.js, Express.js, MongoDB, Mongoose, EJS, HTML, CSS, JavaScript
+---
 
-<ul>
-  <li>Implemented RESTful routing and MVC architecture using Express.js</li>
-  <li>Designed dynamic server-rendered pages using EJS templates</li>
-  <li>Integrated MongoDB with Mongoose for schema design and data modeling</li>
-  <li>Built CRUD functionality for property listings with form validation</li>
-  <li>Managed dependencies and project configuration using NPM</li>
-  <li>Structured backend logic for scalability and modularity</li>
-</ul>
+# 🚀 Features
 
+## 🔐 Authentication & Authorization
+- User Signup & Login
+- Secure Password Hashing using Passport.js
+- Session-based Authentication
+- Forgot Password & Reset Password using Email Verification
+- Protected Routes for authorized users only
 
+## 🏡 Listing Management
+- Create new travel listings
+- Edit and delete listings
+- Upload listing images
+- Add title, description, location, country, and pricing details
 
+## ⭐ Reviews & Ratings
+- Add reviews and ratings to listings
+- Delete reviews
+- User-specific review management
 
+## 📧 Email Services
+- Password reset emails using Nodemailer
+- Mailtrap integration for development/testing
 
+## 🌐 Responsive UI
+- Clean and responsive design
+- User-friendly interface
+- Dynamic flash messages and alerts
 
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+- HTML
+- CSS
+- JavaScript
+- Bootstrap
+- EJS Templates
+
+## Backend
+- Node.js
+- Express.js
+
+## Database
+- MongoDB Atlas
+- Mongoose
+
+## Authentication & Security
+- Passport.js
+- Express Session
+- Connect Flash
+- Method Override
+- Dotenv
+
+## Deployment
+- Render
+- <a href = "https://wanderlust-zebh.onrender.com/listings">https://wanderlust-zebh.onrender.com/listings<a>
