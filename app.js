@@ -19,6 +19,7 @@ const {isLoggedIn} = require("./middleware.js");
 const listingRouter = require("./routes/listingRoute.js");
 const reviewRouter = require("./routes/reviewRoute.js");
 const userRouter = require("./routes/userRoute.js");
+const bookingRouter = require("./routes/bookingRoute.js");
 
 const dbUrl = process.env.ATLASDB_URL;
 
@@ -89,7 +90,7 @@ app.get("/", async (req, res) => {
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
-
+app.use("/bookings", bookingRouter);
 
 app.use((err, req, res, next) => {
     let {statusCode = 500, message = "Something went wrong"} = err;

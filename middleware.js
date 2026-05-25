@@ -7,7 +7,7 @@ const ExpressError = require("./utils/ExpressError.js");
 module.exports.isLoggedIn = (req, res, next) => {
     if(!req.isAuthenticated()) {
         req.session.redirectUrl = req.originalUrl;
-        req.flash("error", "you must be logged in to create listing!");
+        req.flash("error", "you must be logged in!");
         return res.redirect("/login");
     }
     next();
@@ -56,6 +56,19 @@ module.exports.isReviewAuthor = async(req, res, next ) => {
     if(!review.author.equals(res.locals.currUser._id)){
         req.flash("error", "You are not the author of this review!");
         return res.redirect(`/listings/${id}`);
+    }
+    next();
+}
+
+module.exports.validateBooking = (req,res, next) => {
+    let {checkIn, checkOut} = req.body;
+    if(!checkIn || !checkOut) {
+        req.flash("error", "Please provide both check-in and check-out dates!");
+        return res.redirect(`/listings/${req.params.id}`);
+    }
+    if(new Date(checkIn) >= new Date(checkOut)) {
+        req.flash("error", "Check-out date must be after check-in date!");
+        return res.redirect(`/listings/${req.params.id}`);
     }
     next();
 }

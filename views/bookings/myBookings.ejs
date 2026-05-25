@@ -1,0 +1,97 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-4 mb-5">
+    <div class="col-8 offset-2">
+        <h3 class="fw-bold mb-1">My Bookings</h3>
+        <p class="text-muted mb-4">All your upcoming and past trips</p>
+
+        <% if(bookings.length === 0) { %>
+            <div class="text-center py-5">
+                <i class="fa-solid fa-calendar-xmark" style="font-size:3rem; color:#ccc;"></i>
+                <h5 class="mt-3 text-muted">No bookings yet</h5>
+                <p class="text-muted">Start exploring listings and book your next trip!</p>
+                <a href="/listings" class="btn btn-dark mt-2">Explore Listings</a>
+            </div>
+        <% } else { %>
+            <% for(let booking of bookings) { %>
+                <div class="booking-list-card mb-4">
+                    <div class="row g-0">
+                        <div class="col-md-4">
+                            <img 
+                                src="<%= booking.listing.image.url %>" 
+                                alt="listing image"
+                                class="booking-list-img"
+                            />
+                        </div>
+                        <div class="col-md-8 p-3">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <h5 class="fw-bold mb-1"><%= booking.listing.title %></h5>
+                                    <p class="text-muted mb-0" style="font-size:13px;">
+                                        <i class="fa-solid fa-location-dot"></i>
+                                        <%= booking.listing.location %>, <%= booking.listing.country %>
+                                    </p>
+                                </div>
+                                <% 
+                                    const today = new Date();
+                                    const checkIn = new Date(booking.checkIn);
+                                    const checkOut = new Date(booking.checkOut);
+                                    let status, badgeClass;
+                                    if(checkOut < today) {
+                                        status = "Completed";
+                                        badgeClass = "badge-completed";
+                                    } else if(checkIn <= today && checkOut >= today) {
+                                        status = "Ongoing";
+                                        badgeClass = "badge-ongoing";
+                                    } else {
+                                        status = "Upcoming";
+                                        badgeClass = "badge-upcoming";
+                                    }
+                                %>
+                                <span class="booking-badge <%= badgeClass %>"><%= status %></span>
+                            </div>
+
+                            <hr class="my-2"/>
+
+                            <div class="row text-muted" style="font-size:13px;">
+                                <div class="col-4">
+                                    <div class="booking-detail-label">Check-in</div>
+                                    <div class="fw-semibold text-dark">
+                                        <%= checkIn.toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" }) %>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="booking-detail-label">Check-out</div>
+                                    <div class="fw-semibold text-dark">
+                                        <%= checkOut.toLocaleDateString("en-IN", { day:"numeric", month:"short", year:"numeric" }) %>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="booking-detail-label">Guests</div>
+                                    <div class="fw-semibold text-dark"><%= booking.guests %></div>
+                                </div>
+                            </div>
+
+                            <hr class="my-2"/>
+
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <span class="booking-detail-label">Total Paid</span>
+                                    <span class="fw-bold ms-2">&#8377;<%= booking.totalPrice.toLocaleString("en-IN") %></span>
+                                </div>
+                                <div class="d-flex gap-2">
+                                    <a href="/listings/<%= booking.listing._id %>" class="btn btn-sm btn-outline-dark">View Listing</a>
+                                    <% if(checkIn > today) { %>
+                                        <form method="POST" action="/bookings/<%= booking._id %>?_method=DELETE" onsubmit="return cancelBooking();">
+                                            <button class="btn btn-sm btn-dark">Cancel</button>
+                                        </form>
+                                    <% } %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% } %>
+    </div>
+</div>

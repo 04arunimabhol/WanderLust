@@ -2,37 +2,86 @@
 <script>
     const mapToken = "<%= process.env.MAP_TOKEN %>";
     const listing = <%- JSON.stringify(listing) %>;
+    const pricePerNight = <%= listing.price %>;
 </script>
+
 <div class="row mt-4 mb-3">
     <div class="col-8 offset-2">
         <h3 class="fw-bold"><%= listing.title %></h3>
     </div>
-    <div class="card col-8 offset-2 show-card listing-card">
-        <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listingimage"/><br>
-        <div class="card-body">
-            <p class="card-text">
-                <i>Owned By : <%= listing.owner.username %></i> <br><br>
-                <%= listing.description %> <br><br>
-                &#8377; <%= listing.price.toLocaleString("en-In") %> / night <br><br>
-                <i class="fa-solid fa-location-dot"></i> <%= listing.location %> <br><br>
-                <i class="fa-solid fa-globe"></i> <%= listing.country %>
-            </p>
-        </div>
+  
+    <div class="col-8 offset-2">
+        <img src="<%= listing.image.url %>" class="show-img rounded-3 w-100 mb-4" alt="listing image"/>
     </div>
-    <br>
+  
+    <div class="col-5 offset-2">
+        <div class="d-flex align-items-center gap-3 pb-3 border-bottom mb-3">
+            <div class="owner-avatar"><%= listing.owner.username.slice(0,2).toUpperCase() %></div>
+            <div>
+                <div class="fw-semibold">Hosted by <%= listing.owner.username %></div>
+                <div class="text-muted" style="font-size:13px;">Owner</div>
+            </div>
+        </div>
+        <p class="text-muted"><%= listing.description %></p>
+        <p class="text-muted"><i class="fa-solid fa-location-dot"></i> <%= listing.location %></p>
+        <p class="text-muted"><i class="fa-solid fa-globe"></i> <%= listing.country %></p>
 
-    <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
-        <div class="btns">
-            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark col-1 offset-2 edit-btn"> Edit</a>
-            <br><br>
-            <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE">
-                <button class="btn btn-dark offset-8">Delete</button>
+        <% if(currUser && listing.owner._id.equals(currUser._id)) { %>
+        <div class="d-flex gap-5 mt-3">
+            <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit</a>
+            <form method="POST" action="/listings/<%= listing._id %>?_method=DELETE" onsubmit="return confirmDelete()">
+                <button class="btn btn-dark delete-btn">Delete</button>
             </form>
         </div>
-    <% } %>
-    <div class="col-8 offset-2 mt-3">
+        <% } %>
+    </div>
+
+    <%# Booking card %>
+    <div class="col-3">
+        <div class="booking-card">
+            <div class="d-flex align-items-baseline gap-1 mb-3">
+                <span class="fs-4 fw-bold">&#8377;<%= listing.price.toLocaleString("en-IN") %></span>
+                <span class="text-muted" style="font-size:13px;">/ night</span>
+            </div>
+
+            <div class="date-grid mb-2">
+                <div class="date-cell">
+                    <div class="date-label">CHECK-IN</div>
+                    <input type="date" id="check-in" class="date-input"/>
+                </div>
+                <div class="date-cell border-start">
+                    <div class="date-label">CHECK-OUT</div>
+                    <input type="date" id="check-out" class="date-input"/>
+                </div>
+            </div>
+
+            <div class="guests-row mb-3">
+                <div>
+                    <div class="date-label">GUESTS</div>
+                    <div id="guest-label" style="font-size:13px;">1 guest</div>
+                </div>
+                <div class="guests-ctrl">
+                    <button type="button" onclick="changeGuests(-1)" class="guest-btn">-</button>
+                    <span id="guest-count" class="mx-2">1</span>
+                    <button type="button" onclick="changeGuests(1)" class="guest-btn">+</button>
+                </div>
+            </div>
+
+            <% if(currUser && !listing.owner._id.equals(currUser._id)) { %>
+                <a href="/bookings/<%= listing._id %>" class="btn book-btn w-100 text-white">Reserve</a>
+                <p class="text-center text-muted mt-2" style="font-size:12px;">You won't be charged yet</p>
+            <% } else if(currUser) { %>
+                <p class="text-center text-muted mt-2" style="font-size:13px;">You can't book your own listing</p>
+            <% } else { %>
+                <a href="/login" class="btn book-btn w-100 text-white">Login to Reserve</a>
+            <% } %>
+
+        </div>
+    </div>
+
+    <div class="col-8 offset-2 mt-4">
         <hr>
-        <% if(currUser) {%>
+        <% if(currUser) { %>
         <h4 class="fw-semibold">Leave a Review</h4>
         <form action="/listings/<%= listing.id %>/reviews" method="POST" novalidate class="needs-validation">
             <div class="mb-3 mt-3">
@@ -59,35 +108,37 @@
             <button class="btn btn-dark">Submit</button>
         </form>
         <% } %>
-        
+
         <% if(listing.reviews.length > 0) { %>
         <div class="row mt-4">
             <h5 class="mb-3 fw-bold">All Reviews</h5>
-            <% for(review of listing.reviews) {%>
+            <% for(let review of listing.reviews) { %>
                 <div class="card review-card col-md-5 col-12 ms-md-3 mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">@<%= review.author.username %></h5> 
+                        <h5 class="card-title">@<%= review.author.username %></h5>
                         <p class="starability-result card-text" data-rating="<%= review.rating %>"></p>
-                        <p class="card-text"><%= review.comment %> </p>
+                        <p class="card-text"><%= review.comment %></p>
                         <% if(currUser && review.author._id.equals(currUser._id)) { %>
-                            <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE">
+                            <form class="mb-3" method="POST" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" onsubmit="return confirmDelete()">
                                 <button class="btn btn-sm btn-dark">Delete</button>
                             </form>
                         <% } %>
                     </div>
-                </div>    
+                </div>
             <% } %>
         </div>
         <% } %>
-    </div> 
+    </div>
+
+    <%# Map %>
     <div class="col-8 offset-2 mt-3 mb-3">
         <hr>
         <h4 class="fw-semibold">Where you'll be</h4>
         <p><%= listing.location %>, <%= listing.country %></p>
         <div id="map"></div>
-    </div>      
+    </div>
 </div>
 
-<script src="/js/map.js"></script>
+<script src="/js/script.js"></script>
 
-      
+<script src="/js/map.js"></script>
