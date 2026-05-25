@@ -1,13 +1,13 @@
 # WanderLust
 
-A full-stack travel accommodation web application where users can explore, create, review, and manage travel listings seamlessly.
+A full-stack travel accommodation web application where users can explore, create, manage, review, and book travel listings seamlessly.
 
 ---
 
 # 🚀 Features
 
 ## 🔐 Authentication & Authorization
-- User Signup & Login
+- User Signup, Login & Logout
 - Secure Password Hashing using Passport.js
 - Session-based Authentication
 - Forgot Password & Reset Password using Email Verification
@@ -18,11 +18,26 @@ A full-stack travel accommodation web application where users can explore, creat
 - Edit and delete listings
 - Upload listing images
 - Add title, description, location, country, and pricing details
+- Search and filter listings
+- Interactive location maps using MapTiler
 
 ## ⭐ Reviews & Ratings
 - Add reviews and ratings to listings
 - Delete reviews
 - User-specific review management
+
+## 📅 Booking System
+- Book listings with check-in/check-out dates
+- Dynamic booking price calculation
+- Booking conflict detection
+- Prevent overlapping reservations
+- My Bookings page
+- Cancel booking feature
+
+## ☁️ Cloud & Media Services
+- Cloudinary integration for image upload and storage
+- Optimized image delivery
+- MapTiler integration for maps and geolocation
 
 ## 📧 Email Services
 - Password reset emails using Nodemailer
@@ -59,6 +74,14 @@ A full-stack travel accommodation web application where users can explore, creat
 - Method Override
 - Dotenv
 
+## Cloud & Maps
+- Cloudinary
+- MapTiler
+
 ## Deployment
 - Render
-- <a href = "https://wanderlust-zebh.onrender.com/listings">https://wanderlust-zebh.onrender.com/listings<a>
+- <a href = "https://wanderlust-zebh.onrender.com/listings">WanderLust Live Demo</a>
+
+## Demo Credentials to explore features 
+- Username: demo2 
+- Password: demo2
