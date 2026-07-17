@@ -7,16 +7,18 @@ A full-stack travel accommodation web application where users can explore, creat
 # 🚀 Features
 
 ## 🔐 Authentication & Authorization
-- User Signup, Login & Logout
-- Secure Password Hashing using Passport.js
+- Local Authentication (Username & Password) using Passport.js
+- Google OAuth 2.0 Authentication
+- Secure Password Hashing with Passport-Local-Mongoose
 - Session-based Authentication
-- Forgot Password & Reset Password using Email Verification
-- Protected Routes for authorized users only
+- Forgot Password & Reset Password via Email Verification
+- Role-based Authorization for Listings & Reviews
+- Protected Routes using Custom Middleware
 
 ## 🏡 Listing Management
 - Create new travel listings
 - Edit and delete listings
-- Upload listing images
+- - Upload and manage listing images with Cloudinary
 - Add title, description, location, country, and pricing details
 - Search and filter listings
 - Interactive location maps using MapTiler
@@ -41,7 +43,7 @@ A full-stack travel accommodation web application where users can explore, creat
 
 ## 📧 Email Services
 - Password reset emails using Nodemailer
-- Mailtrap integration for development/testing
+- Email testing with Mailtrap during development
 
 ## 🌐 Responsive UI
 - Clean and responsive design
@@ -62,14 +64,18 @@ A full-stack travel accommodation web application where users can explore, creat
 ## Backend
 - Node.js
 - Express.js
+- REST APIs
 
 ## Database
 - MongoDB Atlas
-- Mongoose
+- Mongoose ODM
 
 ## Authentication & Security
 - Passport.js
+- Passport Local
+- Passport Google OAuth 2.0
 - Express Session
+- Connect-Mongo
 - Connect Flash
 - Method Override
 - Dotenv
@@ -78,9 +84,9 @@ A full-stack travel accommodation web application where users can explore, creat
 - Cloudinary
 - MapTiler
 
-## Deployment
-- Render
-- <a href = "https://wanderlust-zebh.onrender.com/listings">WanderLust Live Demo</a>
+## 🚀 Deployment
+
+**Live Demo:** https://wanderlust-zebh.onrender.com/listings
 
 ## Demo Credentials to explore features 
 - Username: demo2 
