@@ -45,9 +45,21 @@ passport.use(
                     return done(null, user);
                 }
 
+                const email = profile.emails[0].value;
+
+                // Generate username from email
+                let username = email.split("@")[0];
+
+                // Check if username already exists
+                const existingUsername = await User.findOne({ username });
+
+                if (existingUsername) {
+                    username = `${username}_${Math.floor(Math.random() * 10000)}`;
+                }
+
                 const newUser = new User({
-                    username: profile.emails[0].value,
-                    email: profile.emails[0].value,
+                    username,
+                    email,
                     googleId: profile.id,
                     provider: "google",
                     profilePicture: profile.photos?.[0]?.value || "",
