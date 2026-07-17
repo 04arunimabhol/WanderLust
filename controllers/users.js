@@ -64,9 +64,7 @@ module.exports.forgotPassword = async(req, res, next) =>{
 
     await user.save();
 
-    const resetUrl = `${process.env.ATLASDB_URL}/resetPassword/${token}`;
-
-    // const resetUrl = `http://localhost:8080/resetPassword/${token}`;
+    const resetUrl = `${process.env.BASE_URL}/resetPassword/${token}`;
 
     const message = `We have received a password reset request. please use the following link to reset your password: \n\n ${resetUrl} \n\nThis reset password link will be valid only for 10 minutes.`;
     try {
@@ -122,4 +120,11 @@ module.exports.resetPassword = async (req, res, next) => {
     req.flash("success","Your password has been reset successfully!");
 
     res.redirect("/login");
+};
+
+module.exports.googleLogin = (req, res) => {
+    req.flash("success", `Welcome back, ${req.user.username}!`);
+
+    const redirectUrl = res.locals.redirectUrl || "/listings";
+    res.redirect(redirectUrl);
 };

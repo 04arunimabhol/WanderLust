@@ -7,7 +7,23 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const userSchema = new Schema({
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true,
+    },
+    googleId: {
+        type: String,
+        default: null,
+    },
+
+    provider: {
+        type: String,
+        enum: ["local", "google"],
+        default: "local",
+    },
+
+    profilePicture: {
+        type: String,
+        default: "",
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
